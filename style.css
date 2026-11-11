@@ -1,0 +1,181 @@
+/* ===== Variáveis: troque as cores aqui e o visual inteiro muda ===== */
+:root {
+  --fundo-pagina: #c9cdc6;
+  --corpo: #dfe2dc;
+  --corpo-borda: #b8bdb4;
+
+  --lcd: #b9c7a6;
+  --lcd-texto: #1d2a1a;
+  --lcd-texto-suave: #4f6149;
+
+  --tecla-numero: #f4f4f0;
+  --tecla-numero-texto: #23262a;
+  --tecla-acao: #c3c8be;
+  --tecla-acao-texto: #23262a;
+  --tecla-operador: #3b4a57;
+  --tecla-operador-texto: #f4f4f0;
+  --tecla-igual: #1f6f6b;
+  --tecla-igual-texto: #f4f4f0;
+
+  --sombra-tecla: #9aa094;
+
+  --fonte-teclas: "Archivo", system-ui, sans-serif;
+  --fonte-visor: "DM Mono", ui-monospace, monospace;
+}
+
+/* ===== Base ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: var(--fundo-pagina);
+  font-family: var(--fonte-teclas);
+}
+
+/* ===== Corpo da calculadora ===== */
+.calculadora {
+  width: 100%;
+  max-width: 340px;
+  padding: 1.25rem;
+  background: var(--corpo);
+  border: 1px solid var(--corpo-borda);
+  border-radius: 1.5rem;
+  box-shadow:
+    0 2px 0 #f1f3ee inset,
+    0 18px 30px -12px rgba(40, 46, 38, 0.45);
+}
+
+/* ===== Visor (estilo LCD) ===== */
+.visor {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: 0.25rem;
+  min-height: 7rem;
+  margin-bottom: 1.25rem;
+  padding: 0.75rem 1rem;
+  background: var(--lcd);
+  border-radius: 0.5rem;
+  box-shadow: inset 0 3px 6px rgba(29, 42, 26, 0.35);
+  font-family: var(--fonte-visor);
+  overflow: hidden;
+}
+
+.visor__historico {
+  min-height: 1.25rem;
+  font-size: 0.9rem;
+  color: var(--lcd-texto-suave);
+}
+
+.visor__resultado {
+  max-width: 100%;
+  font-size: 2.5rem;
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--lcd-texto);
+  text-align: right;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+
+.visor__resultado::-webkit-scrollbar {
+  display: none;
+}
+
+/* ===== Teclado ===== */
+.teclado {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+
+.tecla {
+  aspect-ratio: 1 / 0.9;
+  border: none;
+  border-radius: 0.75rem;
+  font-family: var(--fonte-teclas);
+  font-size: 1.35rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--tecla-numero);
+  color: var(--tecla-numero-texto);
+  box-shadow: 0 4px 0 var(--sombra-tecla);
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+/* Efeito de tecla sendo pressionada */
+.tecla:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--sombra-tecla);
+}
+
+.tecla:focus-visible {
+  outline: 3px solid var(--tecla-igual);
+  outline-offset: 2px;
+}
+
+/* ===== Variações de tecla ===== */
+.tecla--acao {
+  background: var(--tecla-acao);
+  color: var(--tecla-acao-texto);
+}
+
+.tecla--operador {
+  background: var(--tecla-operador);
+  color: var(--tecla-operador-texto);
+  box-shadow: 0 4px 0 #26313b;
+}
+
+.tecla--operador:active {
+  box-shadow: 0 1px 0 #26313b;
+}
+
+.tecla--igual {
+  background: var(--tecla-igual);
+  color: var(--tecla-igual-texto);
+  box-shadow: 0 4px 0 #154a47;
+}
+
+.tecla--igual:active {
+  box-shadow: 0 1px 0 #154a47;
+}
+
+/* Classe opcional: use no JS para destacar o operador ativo
+   Ex.: botao.classList.add("tecla--ativa") */
+.tecla--ativa {
+  outline: 3px solid var(--lcd);
+  outline-offset: -3px;
+}
+
+/* ===== Telas bem pequenas ===== */
+@media (max-width: 360px) {
+  .calculadora {
+    padding: 1rem;
+  }
+
+  .teclado {
+    gap: 0.5rem;
+  }
+
+  .visor__resultado {
+    font-size: 2rem;
+  }
+}
+
+/* ===== Respeita quem desativa animações ===== */
+@media (prefers-reduced-motion: reduce) {
+  .tecla {
+    transition: none;
+  }
+}
