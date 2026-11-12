@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Calculadora</title>
+  <title>Calculator</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,39 +13,46 @@
 </head>
 <body>
 
-  <main class="calculadora">
+  <main class="calculator">
 
-    <section class="visor" role="status" aria-live="polite">
-      <p class="visor__historico" id="historico"></p>
-      <p class="visor__resultado" id="resultado">0</p>
+    <!-- Display: history shows the ongoing expression, result shows the current number -->
+    <section class="display" role="status" aria-live="polite">
+      <p class="display__history" id="history"></p>
+      <p class="display__result" id="result">0</p>
     </section>
 
-    <section class="teclado" aria-label="Teclado da calculadora">
+    <!--
+      Keypad: each button has a data-* attribute so JavaScript knows what to do:
+        data-number   -> digits from 0 to 9
+        data-operator -> + - * /
+        data-action   -> clear, delete, percent, negate, decimal, equals
+    -->
+    <section class="keypad" aria-label="Calculator keypad">
 
-      <button class="tecla tecla--acao" data-acao="limpar" aria-label="Limpar tudo">AC</button>
-      <button class="tecla tecla--acao" data-acao="apagar" aria-label="Apagar último dígito">⌫</button>
-      <button class="tecla tecla--acao" data-acao="porcentagem" aria-label="Porcentagem">%</button>
-      <button class="tecla tecla--operador" data-operador="/" aria-label="Dividir">÷</button>
+      <button class="key key--action" data-action="clear" aria-label="Clear all">AC</button>
+      <button class="key key--action" data-action="delete" aria-label="Delete last digit">⌫</button>
+      <button class="key key--action" data-action="percent" aria-label="Percent">%</button>
+      <button class="key key--operator" data-operator="/" aria-label="Divide">÷</button>
 
-      <button class="tecla" data-numero="7">7</button>
-      <button class="tecla" data-numero="8">8</button>
-      <button class="tecla" data-numero="9">9</button>
-      <button class="tecla tecla--operador" data-operador="*" aria-label="Multiplicar">×</button>
+      <button class="key" data-number="7">7</button>
+      <button class="key" data-number="8">8</button>
+      <button class="key" data-number="9">9</button>
+      <button class="key key--operator" data-operator="*" aria-label="Multiply">×</button>
 
-      <button class="tecla" data-numero="4">4</button>
-      <button class="tecla" data-numero="5">5</button>
-      <button class="tecla" data-numero="6">6</button>
-      <button class="tecla tecla--operador" data-operador="-" aria-label="Subtrair">−</button>
+      <button class="key" data-number="4">4</button>
+      <button class="key" data-number="5">5</button>
+      <button class="key" data-number="6">6</button>
+      <button class="key key--operator" data-operator="-" aria-label="Subtract">−</button>
 
-      <button class="tecla" data-numero="1">1</button>
-      <button class="tecla" data-numero="2">2</button>
-      <button class="tecla" data-numero="3">3</button>
-      <button class="tecla tecla--operador" data-operador="+" aria-label="Somar">+</button>
+      <button class="key" data-number="1">1</button>
+      <button class="key" data-number="2">2</button>
+      <button class="key" data-number="3">3</button>
+      <button class="key key--operator" data-operator="+" aria-label="Add">+</button>
 
-      <button class="tecla tecla--acao" data-acao="inverter" aria-label="Inverter sinal">±</button>
-      <button class="tecla" data-numero="0">0</button>
-      <button class="tecla" data-acao="decimal" aria-label="Vírgula decimal">,</button>
-      <button class="tecla tecla--igual" data-acao="igual" aria-label="Calcular resultado">=</button>
+      <button class="key key--action" data-action="negate" aria-label="Toggle sign">±</button>
+      <button class="key" data-number="0">0</button>
+      <button class="key" data-action="decimal" aria-label="Decimal point">.</button>
+      <button class="key key--equals" data-action="equals" aria-label="Calculate result">=</button>
 
     </section>
   </main>
